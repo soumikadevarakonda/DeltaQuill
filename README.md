@@ -1,207 +1,117 @@
+# DeltaQuill
 
-DeltaQuill
-Stylometric Fingerprinting: Writing Analysis and Authorship Detection Engine
+### Stylometric Fingerprinting: Writing Analysis and Authorship Detection Engine
 
-DeltaQuill is a stylometry framework that identifies authorship by analyzing lexical, syntactic, and statistical patterns in writing.
+**DeltaQuill** is a stylometry framework designed to identify authorship by analyzing lexical, syntactic, and statistical patterns in writing. By applying classical machine learning to distinctive "writing signatures," it achieves high-accuracy attribution across different literary styles.
 
-It applies classical machine learning techniques to detect distinctive writing signatures across texts. The system leverages:
+---
 
-TF-IDF vectorization (unigrams and bigrams)
+## 🚀 Project Overview
 
-Stylometric feature extraction
+DeltaQuill performs **supervised multiclass classification** to predict the most likely author of an input text. The system is built to ensure **book-level generalization**, meaning the model learns an author's fundamental style rather than just memorizing specific plot points or vocabulary from a single book.
 
-Logistic Regression for multiclass classification
+### Authors Included
 
-Book-level evaluation to prevent data leakage
+| Author | Training Book | Testing Book |
+| --- | --- | --- |
+| **Fyodor Dostoevsky** | *Crime and Punishment* | *White Nights* |
+| **George Orwell** | *1984* | *Animal Farm* |
+| **Robin Sharma** | *The 5 AM Club* | *The Wealth Money Can't Buy* |
 
-The result is a high-accuracy authorship attribution engine with an interactive Streamlit interface.
+---
 
-Project Overview
+## 🛠 Methodology
 
-DeltaQuill performs supervised multiclass classification to predict the most likely author of an input text.
+### 1. Data Pipeline
 
-Authors Included
+* **Extraction:** Text is pulled from EPUB files.
+* **Processing:** Cleaning, normalization, and segmenting into chunks.
+* **Storage:** Data is stored in a structured CSV format containing the text chunk, author label, and book identifier.
 
-Fyodor Dostoevsky
+### 2. Feature Engineering
 
-George Orwell
+The engine utilizes two primary layers of analysis:
 
-Robin Sharma
+**A. TF-IDF Vectorization**
 
-Each author contributes:
+* **N-gram Range:** (1, 2) — captures both individual words and two-word phrases.
+* **Max Features:** 5,000 dimensions.
+* **Min DF:** 2 (filters out ultra-rare noise).
 
-One book used for training
+**B. Stylometric Metrics (UI-Integrated)**
+The following metadata is extracted for interpretability:
 
-One different book used for testing
+* Average word and sentence length.
+* Sentence length standard deviation (rhythm analysis).
+* Punctuation frequencies and Type-Token Ratio (vocabulary richness).
 
-This ensures book-level generalization, not chunk-level memorization.
+### 3. Machine Learning Model
 
-Methodology
-1. Data Pipeline
+The system employs **Logistic Regression**.
 
-Text extracted from EPUB files
+* **Why?** It handles high-dimensional sparse data efficiently and provides clear class probabilities.
+* **Evaluation:** By splitting data by **book** rather than by random chunks, we prevent "data leakage," ensuring the model recognizes the author even in a completely new narrative context.
+* **Accuracy:** ~98% on book-level evaluation.
 
-Preprocessing and cleaning
+---
 
-Chunking into smaller segments
+## 📂 Project Structure
 
-Stored as structured CSV dataset
-
-Each dataset entry contains:
-
-Text chunk
-
-Author label
-
-Book identifier
-
-2. Feature Engineering
-TF-IDF Vectorization
-
-Configuration:
-
-ngram_range=(1,2)
-
-max_features=5000
-
-min_df=2
-
-Lowercasing enabled
-
-Each text chunk becomes a 5000-dimensional vector representing lexical patterns.
-
-Stylometric Metrics (Displayed in UI)
-
-The system also extracts:
-
-Average word length
-
-Average sentence length
-
-Sentence length standard deviation
-
-Punctuation frequencies
-
-Type-token ratio
-
-Function word frequencies
-
-Currently, these are displayed for interpretability and analysis.
-
-3. Machine Learning Model
-
-Algorithm Used:
-
-Logistic Regression (Multiclass Classification)
-
-Why Logistic Regression?
-
-Effective for high-dimensional sparse data
-
-Produces interpretable class probabilities
-
-Strong performance in text classification tasks
-
-The model learns linear decision boundaries in TF-IDF feature space.
-
-Evaluation Strategy
-
-Book-Level Split:
-
-Training Books:
-
-Crime and Punishment
-
-1984
-
-The 5 AM Club
-
-Testing Books:
-
-White Nights
-
-Animal Farm
-
-The Wealth Money Can't Buy
-
-This prevents stylistic leakage across chunks of the same book.
-
-Accuracy achieved: ~98% (book-level evaluation)
-
-Project Structure
+```text
 DeltaQuill/
 │
 ├── app/
-│   └── app.py
-│
+│   └── app.py                     # Streamlit interface
 ├── src/
-│   └── stylometric_features.py
-│
+│   └── stylometric_features.py    # Feature extraction logic
 ├── datasets/
 │   └── final/
-│       └── stylometry_dataset.csv
-│
+│       └── stylometry_dataset.csv # Processed data
 ├── models/
-│   ├── model.pkl
-│   └── vectorizer.pkl
-│
-├── train_book_split.py
-├── train_model.py
-├── train_combined.py
-├── train_stylometric_only.py
+│   ├── model.pkl                  # Trained Logistic Regression model
+│   └── vectorizer.pkl             # Fitted TF-IDF Vectorizer
+├── train_book_split.py            # Primary training script
+├── train_model.py                 # Alternative training scripts
 └── README.md
-Running the Project
-1. Train the Model
+
+```
+
+---
+
+## 💻 Running the Project
+
+### 1. Train the Model
+
+Run the split-validation script to generate the model artifacts:
+
+```bash
 python train_book_split.py
 
-This generates:
+```
 
-models/model.pkl
+### 2. Launch the Interface
 
-models/vectorizer.pkl
+Start the Streamlit web application:
 
-2. Launch Streamlit App
+```bash
 streamlit run app/app.py
 
-Open the local URL provided in the terminal.
+```
 
-Sample Texts for Prediction
-Dostoevsky-Style Sample
-I have often wondered whether my thoughts are truly my own, or merely echoes of conversations I have rehearsed in solitude. There is something humiliating in recognizing one’s weakness so clearly and yet being unable to resist it. I analyze myself relentlessly, as though I were both the criminal and the judge, and in doing so I discover not innocence, but an even subtler guilt.
-Orwell-Style Sample
-The government reduced the ration again. The announcement was brief. No explanation was offered. Citizens were expected to accept it.
-Key Concepts Demonstrated
+---
 
-Supervised Machine Learning
+## 📝 Sample Predictions
 
-Text Vectorization using TF-IDF
+> **Dostoevsky-Style:** *"I analyze myself relentlessly, as though I were both the criminal and the judge..."*
+> **Orwell-Style:** *"The government reduced the ration again. The announcement was brief. No explanation was offered."*
 
-N-gram Feature Engineering
+---
 
-Multiclass Logistic Regression
+## ⚠️ Limitations & Future Roadmap
 
-Book-Level Validation Strategy
-
-Streamlit Deployment
-
-Limitations
-
-Forced-choice classification among three authors
-
-No unknown-author detection
-
-Limited number of books per author
-
-Stylometric features not yet integrated into training pipeline
-
-Future Enhancements
-
-Integrate stylometric + TF-IDF hybrid model
-
-Add unknown-author detection
-
-Expand dataset with additional authors
-
-Add file upload support (PDF/TXT)
-
-Improve interpretability visualizations
+* **Current Limits:** Forced-choice classification (cannot detect "Unknown"), limited author pool, and stylometric stats are currently for display rather than training.
+* **Future Enhancements:**
+* Integrate a **Hybrid Model** (TF-IDF + Stylometric features).
+* Add **"Out-of-Distribution" detection** for unknown authors.
+* Support for PDF/TXT file uploads.
+* Expanded dataset with more diverse literary figures.
