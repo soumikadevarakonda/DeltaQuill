@@ -63,15 +63,23 @@ DeltaQuill/
 ├── app/
 │   └── app.py                     # Streamlit interface
 ├── src/
-│   └── stylometric_features.py    # Feature extraction logic
+│   ├── extract_text.py            # EPUB -> raw text
+│   ├── preprocess.py              # Cleaning and normalization
+│   ├── chunking.py                # 1000-word chunks -> CSV dataset
+│   ├── stylometric_features.py    # Stylometric feature extraction
+│   ├── train_book_split.py        # Primary training script (book-level split)
+│   ├── train_model.py             # Alternative: random chunk split
+│   ├── train_combined.py          # Experiment: TF-IDF + stylometric features
+│   └── train_stylometric_only.py  # Experiment: stylometric features only
 ├── datasets/
+│   ├── raw/                       # Source EPUBs
+│   ├── processed/                 # Extracted text
 │   └── final/
 │       └── stylometry_dataset.csv # Processed data
 ├── models/
 │   ├── model.pkl                  # Trained Logistic Regression model
 │   └── vectorizer.pkl             # Fitted TF-IDF Vectorizer
-├── train_book_split.py            # Primary training script
-├── train_model.py                 # Alternative training scripts
+├── requirements.txt
 └── README.md
 
 ```
@@ -80,12 +88,18 @@ DeltaQuill/
 
 ## 💻 Running the Project
 
+Install dependencies (run all commands from the project root):
+
+```bash
+pip install -r requirements.txt
+```
+
 ### 1. Train the Model
 
 Run the split-validation script to generate the model artifacts:
 
 ```bash
-python train_book_split.py
+python src/train_book_split.py
 
 ```
 
@@ -97,6 +111,8 @@ Start the Streamlit web application:
 streamlit run app/app.py
 
 ```
+
+> **Deployment note:** The app is deployed on Streamlit Community Cloud with `app/app.py` as the entry point. `scikit-learn` is pinned in `requirements.txt` to the version used to pickle the model; if you retrain with a different version, update the pin to match.
 
 ---
 

@@ -1,7 +1,10 @@
-# Auto-generated requirements for DeltaQuill project
+# DeltaQuill - Streamlit deployment requirements
+streamlit
 pandas
 numpy
-scikit-learn
 scipy
+# Pinned to the version used to pickle models/model.pkl and models/vectorizer.pkl
+scikit-learn==1.9.1
+# Only needed for the data pipeline (src/extract_text.py)
 ebooklib
 beautifulsoup4
