@@ -244,7 +244,7 @@ def render_footer():
           <div class="links">
             <a href="https://github.com/soumikadevarakonda/" target="_blank" rel="noopener">{GITHUB_ICON}GitHub</a>
             <a href="https://www.linkedin.com/in/soumikadevarakonda" target="_blank" rel="noopener">{LINKEDIN_ICON}LinkedIn</a>
-            <a href="mailto:soumikadevarakonda@gmail.com" title="Email" aria-label="Email">{MAIL_ICON}</a>
+            <a href="mailto:soumikadevarakonda@gmail.com" title="Email" aria-label="Email">{MAIL_ICON}Email</a>
           </div>
           <p class="copy">🪶 DeltaQuill · Stylometric Fingerprinting</p>
         </div>
