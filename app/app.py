@@ -82,6 +82,17 @@ st.markdown(
                   background: #f0efec; color: #0b0b0b; }
       .dq-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 3px;
                    margin-right: 6px; vertical-align: middle; }
+      .dq-footer { margin-top: 3.5rem; padding: 1.6rem 0 0.4rem;
+                   border-top: 1px solid rgba(0,0,0,0.08); text-align: center; }
+      .dq-footer .tagline { color: #52514e; font-size: 0.98rem; font-style: italic;
+                            max-width: 640px; margin: 0 auto 0.9rem; line-height: 1.55; }
+      .dq-footer .who { color: #0b0b0b; font-weight: 700; font-size: 1.05rem; margin: 0 0 0.5rem; }
+      .dq-footer .links { display: flex; justify-content: center; gap: 1.4rem; flex-wrap: wrap; }
+      .dq-footer .links a { display: inline-flex; align-items: center; gap: 0.4rem;
+                            color: #52514e !important; text-decoration: none; font-size: 0.92rem; }
+      .dq-footer .links a:hover { color: #2a78d6 !important; }
+      .dq-footer svg { width: 16px; height: 16px; fill: currentColor; }
+      .dq-footer .copy { color: #8a8984; font-size: 0.8rem; margin-top: 0.9rem; }
     </style>
     """,
     unsafe_allow_html=True,
@@ -195,6 +206,54 @@ with st.container(border=True):
                            disabled=n_words == 0)
 
 # ---------------------------
+# Footer
+# ---------------------------
+GITHUB_ICON = (
+    '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 '
+    '2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94'
+    '-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 '
+    '2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36'
+    '-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 '
+    '2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73'
+    '.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>'
+)
+LINKEDIN_ICON = (
+    '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 1.15C0 .52.52 0 1.17 0h13.66C15.48 '
+    '0 16 .52 16 1.15v13.7c0 .63-.52 1.15-1.17 1.15H1.17C.52 16 0 15.48 0 14.85V1.15zm4.94 '
+    '12.24V6.17H2.54v7.22h2.4zM3.74 5.18c.84 0 1.36-.55 1.36-1.25-.02-.71-.52-1.25-1.35-1.25'
+    '-.82 0-1.36.54-1.36 1.25 0 .7.52 1.25 1.33 1.25h.02zm4.9 8.21V9.36c0-.22.02-.43.08-.59.18'
+    '-.43.57-.88 1.24-.88.87 0 1.22.66 1.22 1.64v3.86h2.4V9.25c0-2.22-1.18-3.25-2.76-3.25-1.28 '
+    '0-1.85.7-2.17 1.2v.03h-.02l.02-.03V6.17h-2.4c.03.68 0 7.22 0 7.22h2.4z"/></svg>'
+)
+MAIL_ICON = (
+    '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 4a2 2 0 012-2h12a2 2 0 012 2v8a2 '
+    '2 0 01-2 2H2a2 2 0 01-2-2V4zm2-1a1 1 0 00-1 1v.22l7 4.2 7-4.2V4a1 1 0 00-1-1H2zm13 '
+    '2.38-4.7 2.82L15 11.1V5.38zm-.03 6.85L9.4 8.8 8 9.62 6.6 8.8l-5.57 3.43A1 1 0 002 13h12a1 '
+    '1 0 00.97-.77zM1 11.1l4.7-2.9L1 5.38v5.72z"/></svg>'
+)
+
+
+def render_footer():
+    st.markdown(
+        f"""
+        <div class="dq-footer">
+          <p class="tagline">A lifelong reader at heart: lost in Dostoevsky's St. Petersburg,
+             haunted by Orwell's Oceania, and up at 5 AM with Robin Sharma.
+             DeltaQuill is my love letter to the books that shaped me.</p>
+          <p class="who">Soumika Devarakonda</p>
+          <div class="links">
+            <a href="https://github.com/soumikadevarakonda/" target="_blank" rel="noopener">{GITHUB_ICON}GitHub</a>
+            <a href="https://www.linkedin.com/in/soumikadevarakonda" target="_blank" rel="noopener">{LINKEDIN_ICON}LinkedIn</a>
+            <a href="mailto:soumikadevarakonda@gmail.com" title="Email" aria-label="Email">{MAIL_ICON}</a>
+          </div>
+          <p class="copy">🪶 DeltaQuill · Stylometric Fingerprinting</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+# ---------------------------
 # Results
 # ---------------------------
 if analyze:
@@ -205,6 +264,7 @@ if analyze:
     if vec.nnz == 0:
         st.warning("None of the words in this text appear in the model's vocabulary, "
                    "so no prediction can be made. Try a longer English passage.")
+        render_footer()
         st.stop()
 
     if top_prob >= 0.75:
@@ -318,3 +378,5 @@ if analyze:
         )
 else:
     st.caption("Results will appear here after you click **Analyze text**.")
+
+render_footer()
