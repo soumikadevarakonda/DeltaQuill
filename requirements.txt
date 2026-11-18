@@ -1,5 +1,5 @@
 # DeltaQuill - Streamlit deployment requirements
-streamlit
+streamlit>=1.50
 pandas
 numpy
 scipy

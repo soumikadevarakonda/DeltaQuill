@@ -60,6 +60,8 @@ The system employs **Logistic Regression**.
 ```text
 DeltaQuill/
 │
+├── .streamlit/
+│   └── config.toml                # Streamlit theme
 ├── app/
 │   └── app.py                     # Streamlit interface
 ├── src/
@@ -67,6 +69,7 @@ DeltaQuill/
 │   ├── preprocess.py              # Cleaning and normalization
 │   ├── chunking.py                # 1000-word chunks -> CSV dataset
 │   ├── stylometric_features.py    # Stylometric feature extraction
+│   ├── predictor.py               # Inference, explanations, author profiles (used by the app)
 │   ├── train_book_split.py        # Primary training script (book-level split)
 │   ├── train_model.py             # Alternative: random chunk split
 │   ├── train_combined.py          # Experiment: TF-IDF + stylometric features
