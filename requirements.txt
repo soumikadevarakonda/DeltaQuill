@@ -1,0 +1,7 @@
+# Auto-generated requirements for DeltaQuill project
+pandas
+numpy
+scikit-learn
+scipy
+ebooklib
+beautifulsoup4
